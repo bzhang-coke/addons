@@ -26,7 +26,7 @@ map:
 options:
   log_level: info
   beta: false
-  enable_test_net_dcl: false
+  enable_test_net_dcl: true
 schema:
   log_level: list(debug|info|notice|warn|error|fatal|verbose|warning|critical)
   beta: bool?
