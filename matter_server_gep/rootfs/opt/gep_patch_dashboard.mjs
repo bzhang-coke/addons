@@ -15,6 +15,44 @@ if (!bundlePath || !modelPath) {
 
 const marker = "/* GEP_CUSTOM_CLUSTER_DESCRIPTIONS */";
 const clusterTableStart = "const clusters = {";
+const globalAttributes = {
+  0xfff8: {
+    id: 0xfff8,
+    label: "GeneratedCommandList",
+    type: "List[command-id]",
+    writable: false,
+  },
+  0xfff9: {
+    id: 0xfff9,
+    label: "AcceptedCommandList",
+    type: "List[command-id]",
+    writable: false,
+  },
+  0xfffa: {
+    id: 0xfffa,
+    label: "EventList",
+    type: "List[event-id]",
+    writable: false,
+  },
+  0xfffb: {
+    id: 0xfffb,
+    label: "AttributeList",
+    type: "List[attrib-id]",
+    writable: false,
+  },
+  0xfffc: {
+    id: 0xfffc,
+    label: "FeatureMap",
+    type: "map32",
+    writable: false,
+  },
+  0xfffd: {
+    id: 0xfffd,
+    label: "ClusterRevision",
+    type: "ClusterRevision",
+    writable: false,
+  },
+};
 let bundle = readFileSync(bundlePath, "utf8");
 
 if (bundle.includes(marker)) {
@@ -41,20 +79,28 @@ const descriptions = Object.fromEntries(
     {
       id: cluster.id,
       label: cluster.name,
-      attributes: Object.fromEntries(
-        cluster.children
-          .filter(child => child.tag === "attribute")
-          .map(attribute => [
-            attribute.id,
-            {
-              id: attribute.id,
-              cluster_id: cluster.id,
-              label: attribute.name,
-              type: dashboardType(attribute),
-              writable: attribute.access?.includes("W") ?? false,
-            },
+      attributes: {
+        ...Object.fromEntries(
+          cluster.children
+            .filter(child => child.tag === "attribute")
+            .map(attribute => [
+              attribute.id,
+              {
+                id: attribute.id,
+                cluster_id: cluster.id,
+                label: attribute.name,
+                type: dashboardType(attribute),
+                writable: attribute.access?.includes("W") ?? false,
+              },
+            ]),
+        ),
+        ...Object.fromEntries(
+          Object.entries(globalAttributes).map(([id, attribute]) => [
+            id,
+            { ...attribute, cluster_id: cluster.id },
           ]),
-      ),
+        ),
+      },
       commands: {},
     },
   ]),

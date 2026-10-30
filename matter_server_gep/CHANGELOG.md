@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0.18
+
+- Identify all standard Matter global attributes in GEP custom clusters in the
+  browser dashboard.
+
 ## 9.0.17
 
 - Add GEP custom cluster and attribute names, Matter types, and write access
