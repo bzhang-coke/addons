@@ -178,13 +178,15 @@ const ChannelTelemetry = Cluster(
   ...globalAttributes(),
 );
 
-for (const cluster of [
+export const GepClusters = [
   DeviceInfo,
   DeviceConfiguration,
   DeviceTelemetry,
   ChannelConfiguration,
   ChannelCalibration,
   ChannelTelemetry,
-]) {
+];
+
+for (const cluster of GepClusters) {
   Matter.children.push(cluster);
 }

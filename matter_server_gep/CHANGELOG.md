@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0.17
+
+- Add GEP custom cluster and attribute names, Matter types, and write access
+  metadata to the Matter Server browser dashboard.
+
 ## 9.0.16
 
 - Use the Matter `single` datatype for GEP 32-bit floating-point attributes so

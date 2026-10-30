@@ -200,10 +200,22 @@ if ! grep -Fq "${custom_cluster_import}" "${server_entry}"; then
   bashio::exit.nok "Failed to register GEP custom clusters in ${server_entry}"
 fi
 
-# matter.js reads LOG_LEVEL while its Node environment is imported. Do not
-# leave the empty Docker build default for it to coerce to boolean true.
+# matter.js reads LOG_LEVEL while its Node environment is imported. Set it
+# before both the dashboard metadata generator and the server process.
 export LOG_LEVEL="${log_level}"
 
-bashio::log.info "Registered GEP device and channel custom clusters."
+# Matter Server's browser dashboard has a separate, statically bundled model
+# description table. Add the GEP descriptions so its cluster and attribute
+# pages display meaningful names, types, and write controls.
+node_modules_dir="$(cd "${server_dir}/../../.." && pwd)"
+dashboard_bundle="$(find \
+  "${node_modules_dir}/@matter-server/dashboard/dist/web/js" \
+  -maxdepth 1 -type f -name 'matter-dashboard-app-*.js' -print -quit)"
+if ! bashio::var.has_value "${dashboard_bundle}"; then
+  bashio::exit.nok "Unable to locate the Matter Server dashboard bundle"
+fi
+node /opt/gep_patch_dashboard.mjs "${dashboard_bundle}" "${custom_cluster_entry}"
+
+bashio::log.info "Registered GEP device and channel custom clusters and dashboard descriptions."
 
 exec node --enable-source-maps "${server_entry}" "${matter_server_args[@]}"
