@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.5.3
+
+- Shut down cleanly when the app is stopped
+- Leave the "Starting" state faster by checking readiness every 5 seconds
+  during startup
+
+## 3.5.2
+
+- Update speech recognition components to their latest versions
+- Disable ONNX Runtime telemetry: newer versions send usage data to a
+  Microsoft server by default, this app keeps it turned off
+
+## 3.5.1.
+
+- Upgrade base image to trixie
+
+## 3.5.0
+
+- Bump torch to avoid regression: https://github.com/pytorch/pytorch/issues/146792
+- Use `find_spec` to avoid importing modules for backend check
+
+## 3.4.1
+
+- Add `vad_clip` option to enable VAD clipping of audio before processing (faster processing for many backends, may not work on Pi 4)
+- Bump `pysilero-vad` to use GGML version (with `GGML_NATIVE=OFF`)
+
 ## 3.3.2
 
 - Add `libgomp1` so `torch`/`torchaudio` can load again, fixing the startup crash loop introduced in 3.3.1

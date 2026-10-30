@@ -1,5 +1,50 @@
 # Changelog
 
+## 3.3.0
+
+- Bump to OTBR POSIX version fd872ab9 (tag v2026.09.0)
+  - Thread 1.4 Credentials Sharing (ePSKc): share Thread network credentials with other devices directly from the Web UI
+  - Web UI: QR codes are now generated locally instead of using a remote service
+  - Various fixes and stability improvements in OpenThread and OTBR
+- Bump beta to OTBR POSIX version cb4bdae2 (tag v2026.10.0)
+  - Routes to external networks announced by other Border Routers in the Thread network (e.g. Apple/Google) are no longer added to the host, which avoids routing loops and mesh congestion on multi Border Router networks. Routes to Thread devices are not affected
+  - Channel changes (pending dataset) are now confirmed with the Thread leader instead of being applied locally
+  - Various fixes and stability improvements in OpenThread and OTBR
+- Explicitly request the network permissions the app needs, in preparation for an upcoming Supervisor change
+
+## 3.2.1
+
+- Keep retrying unavailable network RCPs without crashing the app
+
+## 3.2.0
+
+- Bump to OTBR POSIX version 337711e7 (tag v2026.08.0)
+  - Improved startup robustness: multicast router setup is retried on transient errors
+  - Various fixes and stability improvements in OpenThread
+- Bump beta to OTBR POSIX version fd872ab9 (tag v2026.09.0)
+  - Thread 1.4 Credentials Sharing (ePSKc): share Thread network credentials with other devices directly from the Web UI
+  - Web UI: QR codes are now generated locally instead of using a remote service
+  - Upstream DNS resolution for Thread devices is now fixed in OpenThread itself (the workaround from 3.1.2 remains in place for stable)
+  - Various fixes and stability improvements in OpenThread and OTBR
+
+## 3.1.2
+
+- Fix upstream DNS/DNS64 resolution for Thread devices by not binding the upstream DNS resolver socket to the infra interface (fixes #3947, regression since 2.12.0)
+
+## 3.1.1
+
+- Bump beta to OTBR POSIX version d83ddc62 to test ePSKc / Thread 1.4 Credentials Sharing support ahead of the upstream `release-v2026.09.0` tag
+
+## 3.1.0
+
+- Bump to OTBR POSIX version ec16e396 (tag v2026.07.0)
+- Bump beta to OTBR POSIX version 337711e7 (tag v2026.08.0)
+
+## 3.0.2
+
+- Honor the configured `otbr_log_level` for the OTBR web interface (previously always logged at info level)
+- Bump beta to OTBR POSIX version ec16e396 (tag v2026.07.0)
+
 ## 3.0.1
 
 - Backport fix for [CVE-2026-8369](https://github.com/advisories/GHSA-f6vh-g7gh-wh6h) to stable. This only affects users who have enabled NAT64 and use an untrusted network.

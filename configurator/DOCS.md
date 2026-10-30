@@ -27,6 +27,7 @@ enforce_basepath: false
 git: true
 ignore_pattern:
   - __pycache__
+log_level: info
 ssh_keys: []
 ```
 
@@ -50,6 +51,13 @@ If set to `true`, the app will initialize git for directories that support it.
 This option allows you to hide files and folders from the file browser tree.
 By default, it hides the `__pycache__` folders.
 
+### Option: `log_level` (optional)
+
+Controls how much the file editor logs: `debug`, `info`, `warning`, `error` or
+`critical`. The default is `info`, which logs every web request, including the
+Docker health check that runs every 30 seconds. Set it to `warning` to log only
+problems.
+
 ### Option: `ssh_keys` (required)
 
 A list of filenames containing SSH private keys. These can be used to allow for access to remote git repositories.
@@ -72,5 +80,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 
 [discord]: https://www.home-assistant.io/join-chat
 [forum]: https://community.home-assistant.io
-[issue]: https://github.com/home-assistant/addons/issues
+[issue]: https://github.com/home-assistant/app-configurator/issues
 [reddit]: https://reddit.com/r/homeassistant

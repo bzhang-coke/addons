@@ -1,5 +1,265 @@
 # Changelog
 
+## 1.10.0
+
+### Z-Wave JS 15.31.1...15.31.2
+
+#### Bugfixes
+
+- Reject invalid statuses in Powerlevel Test Node Reports
+- Set the device class to Static Controller when migrating controllers to the 700 or 800 series
+
+#### Config file changes
+
+- Group whole-device control aggregates on Zipato/Philio PAN04
+- Group whole-device control aggregates on Vemmio DS100
+- Group whole-device totals on Zipato/Philio PAB01 energy meters
+- Group whole-device totals on Qubino 3-Phase Smart Meter (ZMNHXD)
+- Group all endpoints on Aeotec Indoor Siren 6 (ZW164)
+- Group variable-speed pump endpoints for Intermatic PE653
+- Group shutter endpoints for Shelly Wave Shutter (QNSH-001P10)
+- Group shutter endpoints for Qubino Flush Shutter DC (ZMNHCD)
+- Correct the Merten 506004 device configuration
+- Send Multilevel Switch v1 frames to the Springs RSZ1
+
+### Z-Wave JS UI 11.24.3...11.25.1
+
+#### Features
+
+- Add an option to enable Configuration CC entities by default
+- Limit column filter choices to values in the filtered rows
+- Show minimum, maximum, and step values in value hints
+
+#### Bugfixes
+
+- Allow boolean actuators on broadcast and multicast nodes to be turned off
+- Correct Home Assistant discovery for kVAh and pulse count electric meters
+- Use the circuit 4 state topic for Intermatic PE653 circuit 4
+- Generate valid color temperature value templates for warm and cold white lights
+- Clear retained MQTT discovery and value topics with an empty payload
+- Explain that SmartStart names and locations are shared with integrations
+- Improve firmware warning grammar
+- Preserve network graph filters when clicking the background
+- Scroll navigation tabs when their labels do not fit
+- Wrap long option labels in value dropdowns
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.25.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.25.1)
+- [Z-Wave JS UI 11.25.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.25.0)
+- [Z-Wave JS 15.31.2](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.2)
+
+## 1.9.1
+
+### Z-Wave JS 15.31.0...15.31.1
+
+#### Bugfixes
+
+- Resolved an issue preventing `restoreNVM()` and 500-series OTW updates from aborting during soft reset
+- Retry the original command after a delay when nodes respond with "Application Busy" instead of the expected response
+- Fixed an issue where `maxDataRate` could become `-Infinity` for ready nodes without a known data rate
+- Prevent multiple network-wide route rebuilds from running simultaneously
+
+#### Config file changes
+
+- Name and group the endpoints of the Aeotec HEM 8
+- Add a manual value refresh delay for Leviton VRI06
+- Add manual refresh delays for Leviton VRMX1 and VRS15
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.3)
+- [Z-Wave JS 15.31.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.1)
+
+## 1.9.0
+
+### Z-Wave JS 15.29.0...15.31.0
+
+#### Features
+
+- Add support for grouping endpoints
+
+#### Config file changes
+
+- Add a manual refresh delay for Leviton DZ6HD
+- Correct Shelly Wave Shutter moving time units
+- Update the Aeotec ZWA056 Water Sensor 8 configuration
+- Correct the acceleration sensor unit factor for Aeotec ZWA055 Door / Window Sensor 8
+- Add Aeotec ZWA066 MultiSensor 8
+- Add Shenzhen Neo NAS-WS02Z Water Sensor
+- Add Nice FGD-223 Double Dimmer-Control
+- Fix several Qubino ZMNHTD parameter errors
+- Correct the value size of Qubino ZMNHTD parameter 40
+- Map root reports to endpoint 1 on Remotec ZXT-800 and add a fingerprint
+- Fix configuration conditions with invalid firmware version formatting that never matched
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.2)
+- [Z-Wave JS 15.31.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.31.0)
+- [Z-Wave JS 15.30.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.30.0)
+- [Z-Wave JS Server 3.11.0](https://github.com/zwave-js/zwave-js-server/releases/tag/3.11.0)
+
+## 1.8.1
+
+### Z-Wave JS Server 3.10.2
+
+#### Bugfixes
+
+- Fixes an issue that could prevent clients from receiving "node removed" events
+- Refuse new client connections while the driver is temporarily not ready
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.1)
+- [Z-Wave JS Server 3.10.2](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.2)
+
+## 1.8.0
+
+### Z-Wave JS 15.27.1...15.29.0
+
+#### Features
+
+- Queued commands that are redundant are now deduplicated automatically
+
+#### Bugfixes
+
+- Fixed an issue preventing controller firmware updates from starting properly
+- Work around an issue where some controllers on Z-Wave SDK 8.0.0 that had migrated from an old 500 series controller would behave like sleeping nodes
+- Prevent SONOFF controllers from entering the bootloader during startup on Windows
+- Correct signal-to-noise margin units from dBm to dB
+- Fixed how some commands were handled internally to improve spec compliance
+- Fields in incoming commands that are unexpected for the version supported by the end device are now ignored
+- Fixed an issue where spurious "unknown" notification sensor entities could be created
+- Fixed an issue where the regular background RSSI measurements could prevent refreshing the status of some legacy devices in some scenarios
+
+#### Config file changes
+
+- Fix malformed notifications from HomeSeer FS100 devices
+- Add labels to several devices' endpoints
+- Correct external sensor resistance options for Heatit Z-TRM7
+- Add fingerprint `0x0c02:0x3002` to Fibargroup FGSD-002
+- Update Zooz ZEN32 for firmware 3.30
+- Add Aeotec ZWA056 Water Sensor 8
+- Add Aeotec ZWA065 Siren 8
+- Add Aeotec ZWA057 aërQ Temperature and Humidity Sensor 8
+- Add Aeotec ZWA055 Door / Window Sensor 8
+- Update Inovelli VZW32-SN P50 and P107 for firmware 2.4
+- Add Zooz ZEN12 800LR Motion Dimmer
+- Add Zooz ZEN37 parameter 10 for firmware 2.40
+- Add an Off option for Heatit Z-TRM7 standby display brightness
+- Update Zooz configurations for new firmware parameters
+- Add Simon 100 Battery Master Roller Blind
+- Update Inovelli VZW32-SN P111 to match the public documentation
+
+### Z-Wave JS UI 11.22.3...11.24.0
+
+#### Features
+
+- Add a speed column to the control panel
+- Add environment metadata to debug capture sessions
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.24.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.24.0)
+- [Z-Wave JS UI 11.23.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.23.0)
+- [Z-Wave JS 15.29.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.29.0)
+- [Z-Wave JS 15.28.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.28.0)
+
+## 1.7.1
+
+### Z-Wave JS 15.27.0...15.27.1
+
+#### Bugfixes
+
+- Fixes an issue with older Z-Wave.me controllers becoming unresponsive during startup
+
+#### Config file changes
+
+- Add a fingerprint for the Climax SDCO smoke and carbon monoxide detector
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.3](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.3)
+- [Z-Wave JS 15.27.1](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.1)
+
+## 1.7.0
+
+This release includes performance improvements for the startup phase of large networks
+
+### Z-Wave JS 15.26.0...15.27.0
+
+#### Features
+
+- Added support for opening PTI Zniffer trace captures
+
+#### Bugfixes
+
+- Fixed an issue where zero-valued enums could be restored incorrectly from the network cache
+- Continue the User Code CC interview when User Credential CC capabilities are unknown
+
+#### Config file changes
+
+- Add Heatit Z-TRM7 and standardize Heatit config parameters across devices
+- Add product ID `0x5600` for YRM276 with the ZW3 module (700 series)
+- Remove Multi Channel CC support for the Vero Duco CO2 sensor
+- Update the manual URL for Lamp-ZW2
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.2](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.2)
+- [Z-Wave JS UI 11.22.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.1)
+- [Z-Wave JS 15.27.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.27.0)
+- [Z-Wave JS Server 3.10.1](https://github.com/zwave-js/zwave-js-server/releases/tag/3.10.1)
+
+## 1.6.1
+
+Fixes the add-on taking 30 seconds to stop and exiting with code 137
+
+## 1.6.0
+
+This release extends the credential management functionality with a dedicated UI with support for more credential types, credential learning, and admin code support.
+
+### Z-Wave JS 15.25.0...15.26.0
+
+#### Features
+
+- Ongoing interviews are now paused during inclusion, security bootstrapping, and exclusion, greatly improving reliability when adding multiple devices at once
+
+#### Bugfixes
+
+- Added a workaround for some locks that send an incorrect report immediately after starting credential learning
+- Increased timeouts for bulk-deleting users and credentials
+- Fixed several issues that could lead to stale credentials being cached
+
+#### Config file changes
+
+- Add UltraPro 800 Series On/Off Switch
+- Add UltraPro 800 Series dimmer
+- Add GR-105N device configuration
+- Add Nexa ZPR-111 parameters
+- Corrected and cleaned up all Fibaro device files
+- Fix broken link to Honeywell T6 Pro manual
+
+### Z-Wave JS UI 11.21.0...11.22.0
+
+#### Features
+
+- The statistics opt-in popup is no longer shown - this setting is fully managed in Home Assistant now
+
+#### Bugfixes
+
+- Improved security of the API
+- Refresh broadcast virtual nodes after node removal to avoid querying removed nodes
+- Separated virtual and physical devices in the nodes table
+- Show group ID instead of the redundant endpoint in the association group dropdown
+
+### Detailed changelogs
+
+- [Z-Wave JS UI 11.22.0](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.22.0)
+- [Z-Wave JS UI 11.21.1](https://github.com/zwave-js/zwave-js-ui/releases/tag/v11.21.1)
+- [Z-Wave JS 15.26.0](https://github.com/zwave-js/zwave-js/releases/tag/v15.26.0)
+
 ## 1.5.0
 
 ### Z-Wave JS 15.24.2...15.25.0

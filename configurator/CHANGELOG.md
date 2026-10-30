@@ -1,5 +1,21 @@
 # Changelog
 
+## 6.3.0
+
+- Use a 5s startup healthcheck interval
+- Update hass-configurator to v0.7.0
+- Update the base image to latest patch release
+- Publish app to GHCR
+
+## 6.2.0
+
+- Add a `log_level` option; set it to `warning` to stop logging every web request, including the Docker health check
+
+## 6.1.0
+
+- Migrate to the new `all_app_configs` folder mapping name introduced in Home Assistant Supervisor
+- Update base image to 3.24-2026.06.1
+
 ## 6.0.0
 
 - Update hass-configurator to 0.6.0 (see [changelog](https://github.com/danielperna84/hass-configurator/releases/tag/0.6.0) for details)
