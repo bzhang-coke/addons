@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0.15
+
+- Load the GEP matter.js model after Matter Server pre-initialization.
+- Export the configured log level before matter.js initializes its Node environment.
+
 ## 9.0.14
 
 - Register the six GEP water-valve vendor clusters from the Nordic firmware model with matter.js.

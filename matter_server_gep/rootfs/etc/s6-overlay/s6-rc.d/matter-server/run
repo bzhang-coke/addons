@@ -181,15 +181,29 @@ matter_server_args+=(
 
 set -e
 
-# The model must be preloaded before Matter Server imports its built-in custom
-# clusters and finalizes the Matter model. Install the module beside the
-# selected server entrypoint so its @matter/main dependency resolves for both
-# the bundled server and an npm-installed beta/pinned server.
+# Install the model beside the selected server entrypoint so its @matter/main
+# dependency resolves for both the bundled server and an npm-installed
+# beta/pinned server. Import it immediately after Matter Server's pre-init and
+# before the built-in custom clusters finalize the Matter model.
 server_dir="$(dirname "${server_entry}")"
 custom_cluster_entry="${server_dir}/gep-custom-clusters.js"
 cp -f /opt/gep_custom_clusters.mjs "${custom_cluster_entry}"
 
+custom_cluster_import='import "./gep-custom-clusters.js";'
+if ! grep -Fq "${custom_cluster_import}" "${server_entry}"; then
+  sed -i \
+    '/^import "\.\/pre-init\.js";$/a import "./gep-custom-clusters.js";' \
+    "${server_entry}"
+fi
+
+if ! grep -Fq "${custom_cluster_import}" "${server_entry}"; then
+  bashio::exit.nok "Failed to register GEP custom clusters in ${server_entry}"
+fi
+
+# matter.js reads LOG_LEVEL while its Node environment is imported. Do not
+# leave the empty Docker build default for it to coerce to boolean true.
+export LOG_LEVEL="${log_level}"
+
 bashio::log.info "Registered GEP device and channel custom clusters."
 
-exec node --enable-source-maps --import "${custom_cluster_entry}" \
-  "${server_entry}" "${matter_server_args[@]}"
+exec node --enable-source-maps "${server_entry}" "${matter_server_args[@]}"
