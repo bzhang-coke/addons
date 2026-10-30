@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0.16
+
+- Use the Matter `single` datatype for GEP 32-bit floating-point attributes so
+  client endpoints can initialize correctly.
+
 ## 9.0.15
 
 - Load the GEP matter.js model after Matter Server pre-initialization.
