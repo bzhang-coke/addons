@@ -28,10 +28,10 @@ and expand these endpoints:
   `ChannelTelemetry`.
 
 The Web UI shows the custom attributes by name. Enable its developer mode to
-write the configuration attributes. Home Assistant Core does not automatically
-create dashboard entities for arbitrary vendor attributes; that requires a
-matching Home Assistant Matter entity implementation in addition to this
-server-side metadata.
+write the configuration and calibration attributes. Home Assistant Core does
+not automatically create dashboard entities for arbitrary vendor attributes;
+that requires a matching Home Assistant Matter entity implementation in
+addition to this server-side metadata.
 
 ### Access WebSocket interface externally (advanced)
 

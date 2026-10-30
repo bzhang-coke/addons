@@ -1,5 +1,10 @@
 # Changelog
 
+## 9.0.19
+
+- Mark all GEP Channel Calibration attributes writable to match the updated
+  Nordic firmware data model.
+
 ## 9.0.18
 
 - Identify all standard Matter global attributes in GEP custom clusters in the
