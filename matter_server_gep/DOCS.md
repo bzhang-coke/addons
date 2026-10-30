@@ -17,6 +17,22 @@ Start the Matter Server app to make the WebSocket available to Home
 Assistant Core. Install the [Matter integration][matter_integration]
 in Home Assistant Core.
 
+### GEP water-valve endpoints
+
+This build registers the vendor clusters implemented by the Nordic GEP
+water-valve firmware. Open the app's **Web UI**, select the commissioned node,
+and expand these endpoints:
+
+- Endpoint 1: `DeviceInfo`, `DeviceConfiguration`, and `DeviceTelemetry`.
+- Endpoints 2 and 3: `ChannelConfiguration`, `ChannelCalibration`, and
+  `ChannelTelemetry`.
+
+The Web UI shows the custom attributes by name. Enable its developer mode to
+write the configuration attributes. Home Assistant Core does not automatically
+create dashboard entities for arbitrary vendor attributes; that requires a
+matching Home Assistant Matter entity implementation in addition to this
+server-side metadata.
+
 ### Access WebSocket interface externally (advanced)
 
 By default, the OHF Matter Server's WebSocket interface is only exposed

@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.0.14
+
+- Register the six GEP water-valve vendor clusters from the Nordic firmware model with matter.js.
+- Display named device attributes on endpoint 1 and named channel attributes on endpoints 2 and 3 in the Matter Server dashboard.
+- Replace the obsolete Python Matter Server custom-cluster injection with a matter.js model extension.
+
 ## 9.0.4
 
 - **⚠️ When upgrading from 8.x, please also consider the release notes for 9.0.0.**

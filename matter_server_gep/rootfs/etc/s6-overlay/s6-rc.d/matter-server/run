@@ -181,27 +181,15 @@ matter_server_args+=(
 
 set -e
 
-PY_SITE="$(python3 - <<'PY'
-import site
-candidates = site.getsitepackages()
-print(candidates[0] if candidates else "/usr/local/lib/python3.12/site-packages")
-PY
-)"
+# The model must be preloaded before Matter Server imports its built-in custom
+# clusters and finalizes the Matter model. Install the module beside the
+# selected server entrypoint so its @matter/main dependency resolves for both
+# the bundled server and an npm-installed beta/pinned server.
+server_dir="$(dirname "${server_entry}")"
+custom_cluster_entry="${server_dir}/gep-custom-clusters.js"
+cp -f /opt/gep_custom_clusters.mjs "${custom_cluster_entry}"
 
-TARGET_DIR="${PY_SITE}/matter_server/server"
-TARGET_FILE="${TARGET_DIR}/gep_custom_cluster.py"
-INIT_FILE="${TARGET_DIR}/__init__.py"
+bashio::log.info "Registered GEP device and channel custom clusters."
 
-if [ -d "${TARGET_DIR}" ]; then
-  cp -f /opt/gep_custom_cluster.py "${TARGET_FILE}"
-
-  if ! grep -q "matter_server.server.gep_custom_cluster" "${INIT_FILE}"; then
-    echo "import matter_server.server.gep_custom_cluster" >> "${INIT_FILE}"
-  fi
-
-  bashio::log.info "GEP custom cluster injected into Matter Server runtime."
-else
-  bashio::log.warning "Matter Server package path not found: ${TARGET_DIR}"
-fi
-
-exec node --enable-source-maps "${server_entry}" "${matter_server_args[@]}"
+exec node --enable-source-maps --import "${custom_cluster_entry}" \
+  "${server_entry}" "${matter_server_args[@]}"
